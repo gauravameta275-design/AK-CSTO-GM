@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pandora Rewards Program</title>
+<link rel="shortcut icon" href="pandora-logo.png" type="image/x-icon">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1B2A4A;--navy-deep:#0E1B30;--navy-light:#f0f3f8;--navy-border:#c2cce0;
+  --wave:#4A90D9;--sand:#E8D5B0;
+  --white:#ffffff;--off:#F6F8FA;--dark:#1A1A1A;--mid:#555;--muted:#999;
+  --r-sm:10px;--r-md:14px;--r-lg:22px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--dark);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+.wrap{max-width:440px;margin:0 auto;padding:14px 14px 40px;}
+.card{background:var(--white);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.10);}
+
+/* header */
+.hdr{padding:22px 22px 16px;text-align:center;border-bottom:1px solid #edf0f5;}
+.brand{display:inline-flex;align-items:center;gap:6px;background:var(--navy-light);border:1px solid var(--navy-border);border-radius:100px;padding:5px 12px;margin-bottom:12px;}
+.bdot{width:14px;height:14px;background:var(--navy);border-radius:50%;flex-shrink:0;}
+.brand span{font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.1em;text-transform:uppercase;}
+.hdr h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--dark);}
+.hdr h1 em{font-style:normal;color:var(--navy);}
+.hdr p{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+/* gift card */
+.gc-wrap{padding:14px 18px 0;}
+.gc{background:linear-gradient(135deg,#1B2A4A 0%,#0A1628 100%);border-radius:var(--r-md);padding:14px 18px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(27,42,74,.40);}
+.gc::before{content:'';position:absolute;top:-24px;right:-24px;width:100px;height:100px;background:rgba(255,255,255,.05);border-radius:50%;}
+/* subtle wave line accent at bottom */
+.gc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4A90D9,#7DB8E8,#4A90D9);opacity:.6;}
+.gc-inner{display:flex;align-items:center;justify-content:space-between;position:relative;}
+.gc-left{display:flex;align-items:center;gap:10px;}
+.gc-badge{height:28px;padding:0 12px;background:var(--white);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;min-width:90px;}
+.gc-badge svg{height:13px;width:auto;}
+.gc-sub{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:1px;}
+.gc-right{text-align:right;}
+.gc-lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
+.gc-val{font-family:'Playfair Display',serif;font-size:34px;font-weight:800;color:var(--white);line-height:1;}
+
+/* steps */
+.steps{padding:16px 18px 10px;}
+.steps-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;text-align:center;}
+.step{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--off);border:1px solid #e4e9f0;border-radius:var(--r-sm);margin-bottom:7px;}
+.step:last-child{margin-bottom:0;}
+.snum{width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--white);flex-shrink:0;box-shadow:0 3px 8px rgba(27,42,74,.28);}
+.step p{font-size:13px;font-weight:600;color:var(--dark);}
+
+/* cta */
+.cta-wrap{padding:14px 18px 16px;}
+.cta-btn{display:block;width:100%;padding:16px;background:var(--navy);color:var(--white);border:none;border-radius:var(--r-md);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 5px 20px rgba(27,42,74,.36);transition:transform .15s,box-shadow .15s,background .15s;}
+.cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.09) 0%,transparent 60%);pointer-events:none;}
+.cta-btn:hover{background:var(--navy-deep);transform:translateY(-1px);box-shadow:0 8px 28px rgba(27,42,74,.48);}
+.cta-btn:active{transform:translateY(0);}
+.cta-sub{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55;padding:0 4px;}
+
+/* social proof */
+.proof{background:var(--off);border-top:1px solid #edf0f5;border-bottom:1px solid #edf0f5;padding:12px 18px;display:flex;align-items:center;gap:12px;}
+.avatars{display:flex;flex-shrink:0;}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--white);overflow:hidden;margin-left:-9px;flex-shrink:0;}
+.av:first-child{margin-left:0;}
+.av svg{width:30px;height:30px;display:block;}
+.proof-txt{font-size:12px;color:var(--mid);line-height:1.4;}
+.proof-txt strong{font-weight:600;color:var(--dark);}
+
+/* faq */
+.faq{padding:20px 18px 22px;}
+.faq-hd{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--dark);margin-bottom:12px;letter-spacing:-.02em;}
+.faq-item{border-bottom:1px solid #edf0f5;}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{width:100%;background:none;border:none;padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);text-align:left;}
+.faq-chev{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .25s;}
+.faq-item.open .faq-chev{transform:rotate(180deg);}
+.faq-a{font-size:12.5px;color:var(--mid);line-height:1.65;max-height:0;overflow:hidden;transition:max-height .3s ease,padding-bottom .3s ease;padding-bottom:0;}
+.faq-item.open .faq-a{max-height:180px;padding-bottom:12px;}
+
+footer{text-align:center;padding:20px 16px 12px;font-size:11px;color:var(--muted);line-height:1.7;}
+footer a{color:var(--muted);text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card{animation:fadeUp .5s ease both;}
+@keyframes pulse{0%,100%{box-shadow:0 5px 20px rgba(27,42,74,.36);}50%{box-shadow:0 5px 32px rgba(27,42,74,.56);}}
+.cta-btn{animation:pulse 2.8s ease-in-out infinite;}
+.cta-btn:hover{animation:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+
+  <div class="hdr">
+    <div class="brand"><div class="bdot"></div><span>Official Reward Program</span></div>
+    <h1>Claim Your <em>$500</em><br>Pandora Gift Card</h1>
+    <p>Follow the steps below and unlock your exclusive reward.</p>
+  </div>
+
+  <div class="gc-wrap">
+    <div class="gc">
+      <div class="gc-inner">
+        <div class="gc-left">
+          <!-- Pandora wordmark: clean spaced caps on white badge -->
+          <div class="gc-badge">
+            <svg viewBox="0 0 90 14" xmlns="http://www.w3.org/2000/svg">
+              <text x="1" y="11"
+                font-family="Georgia, 'Times New Roman', serif"
+                font-size="11"
+                font-weight="700"
+                letter-spacing="2"
+                fill="#1B2A4A">Pandora</text>
+            </svg>
+          </div>
+          <div>
+            <div class="gc-sub">Gift Card</div>
+          </div>
+        </div>
+        <div class="gc-right">
+          <div class="gc-lbl">Value</div>
+          <div class="gc-val">$500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="steps-lbl">How to claim</div>
+    <div class="step"><div class="snum">1</div><p>Click on "Claim Now"</p></div>
+    <div class="step"><div class="snum">2</div><p>Enter your email &amp; basic info</p></div>
+    <div class="step"><div class="snum">3</div><p>Complete 4–5 sponsored deals</p></div>
+    <div class="step"><div class="snum">4</div><p>Enjoy your exclusive offer</p></div>
+  </div>
+
+  <div class="cta-wrap">
+    <a href="https://giftclick.org/aff_c?offer_id=174&aff_id=2877&source=PNDO-SWP-3303" class="cta-btn">Start Now →</a>
+    <div class="cta-sub">By clicking you agree to complete the required steps to access your offer. No purchase necessary.</div>
+  </div>
+
+  <div class="proof">
+    <div class="avatars">
+      <div class="av">
+        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="15" fill="#C68642"/>
+          <ellipse cx="15" cy="13" rx="5.5" ry="6" fill="#8B5E3C"/>
+          <ellipse cx="15" cy="12.5" rx="4" ry="4.5" fill="#F0C27F"/>
+          <ellipse cx="15" cy="11" rx="5.8" ry="3.5" fill="#3B1F0E"/>
+          <path d="M8 28c0-6 14-6 14 0" fill="#7B3F00"/>
+          <ellipse cx="15" cy="27" rx="7" ry="5" fill="#7B3F00"/>
+        </svg>
+      </div>
+      <div class="av">
+        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="15" fill="#E8A87C"/>
+          <ellipse cx="15" cy="13" rx="5.5" ry="6" fill="#6B3A2A"/>
+          <ellipse cx="15" cy="12.5" rx="4" ry="4.5" fill="#FDDBB4"/>
+          <ellipse cx="15" cy="10.5" rx="5.5" ry="3" fill="#4A2A1A"/>
+          <path d="M8 28c0-6 14-6 14 0" fill="#3B6EA5"/>
+          <ellipse cx="15" cy="27" rx="7" ry="5" fill="#3B6EA5"/>
+        </svg>
+      </div>
+      <div class="av">
+        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="15" fill="#D4956A"/>
+          <ellipse cx="15" cy="13" rx="5.5" ry="6" fill="#2C1A0E"/>
+          <ellipse cx="15" cy="12.5" rx="4" ry="4.5" fill="#E8B48A"/>
+          <ellipse cx="15" cy="10" rx="6" ry="4" fill="#1A0A04"/>
+          <path d="M8 28c0-6 14-6 14 0" fill="#1A5276"/>
+          <ellipse cx="15" cy="27" rx="7" ry="5" fill="#1A5276"/>
+        </svg>
+      </div>
+    </div>
+    <div class="proof-txt"><strong>2,400+ people</strong> claimed their gift card this week alone.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-hd">Frequently Asked Questions</div>
+
+    <div class="faq-item open">
+      <button class="faq-q" onclick="tog(this)">How long does it take?
+        <svg class="faq-chev" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="faq-a">Most users finish in under 20 minutes. Your gift card is processed within 3–5 business days after verification.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">What are sponsored deals?
+        <svg class="faq-chev" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="faq-a">Sponsored deals are offers from our advertising partners — free trials, surveys, or sign-ups. You choose which ones you complete.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">How many offers do I complete?
+        <svg class="faq-chev" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="faq-a">Between 4 and 5 sponsored deals. All requirements are clearly shown during registration.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="tog(this)">When is access processed?
+        <svg class="faq-chev" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="faq-a">After your deals are verified (usually 24–48 hrs), your gift card is sent to the email you registered with.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  Promotional offer. Participation requires completing sponsored deals. <a href="#">Terms</a> &amp; <a href="#">Privacy</a>.<br>
+  Not affiliated with Pandora Co. / Abercrombie &amp; Fitch. © 2026 Reward Promotions.
+</footer>
+</div>
+
+<script>
+function tog(btn){
+  const item=btn.closest('.faq-item');
+  const was=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!was)item.classList.add('open');
+}
+</script>
+</body>
+</html>
